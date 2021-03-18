@@ -1,4 +1,4 @@
-//console.log(pizzaJson);
+console.log(pizzaJson);
 
 const selectHtml = (elemento)=>{
     return document.querySelector(elemento);
@@ -10,10 +10,13 @@ const selectHtmlAll = (elemento)=>{
 pizzaJson.map((item, index) => {
     //clona a estrutura do html
     let pizzaItem = selectHtml(".models .pizza-item").cloneNode(true);
+
     //puxando dados do Json
-    pizzaItem.querySelector('.pizza-item--name').innerHtml = item.name;
-    pizzaItem.querySelector('.pizza-item--desc').innerHtml = item.description;
-    pizzaItem.querySelector('.pizza-item--price').innerHtml = `R$ ${item.price.toFixed(2)}`;
+    //imagem
+    pizzaItem.querySelector('pizza-item--img img').src= item.img;
+    pizzaItem.querySelector('.pizza-item--price').innerHTML = `R$ ${item.price.toFixed(2)}`;
+    pizzaItem.querySelector('.pizza-item--name').innerHTML = item.name;
+    pizzaItem.querySelector('.pizza-item--desc').innerHTML = item.description;
 
     //preenche dados
     selectHtml(".pizza-area").append(pizzaItem);
