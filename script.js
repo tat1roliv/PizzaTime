@@ -16,9 +16,23 @@ pizzaJson.map((pizza, index) => {
     pizzaItem.querySelector('.pizza-item--desc').innerHTML = pizza.description;
     pizzaItem.querySelector('.pizza-item--price').innerHTML = `R$ ${pizza.price.toFixed(2)}`;
     pizzaItem.querySelector('.pizza-item--img img').src = pizza.img;
+    pizzaItem.querySelector('a').addEventListener('click', (event)=>{ //janela pizza
+        event.preventDefault();
+        console.log("clicou");
+
+        selectHtml('.pizzaWindowArea').style.opacity = 0;
+        selectHtml('.pizzaWindowArea').style.display = 'flex';
+
+        setTimeout(()=>{
+            selectHtml('.pizzaWindowArea').style.opacity = 1;
+        }, 200);
+
+    });
 
     //preenche dados
     selectHtml(".pizza-area").append(pizzaItem);
 
+
+    
 
 });
