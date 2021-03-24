@@ -26,6 +26,11 @@ pizzaJson.map((pizza, index) => {
         //console.log("clicou");
         let key = event.target.closest('.pizza-item').getAttribute('data-key');
 
+        //preenchendo dados da janela
+        selectHtml('.pizzaBig img').src = pizzaJson[key].img;
+        selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;//nome da pizza
+        selectHtml('.pizza-item--desc').innerHTML = pizzaJson[key].description;
+
         console.log("pizza clicada"+key);
         //console.log(pizzaJson[key]);
 
