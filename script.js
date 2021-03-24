@@ -1,36 +1,35 @@
-console.log(pizzaJson);
+//console.log(pizzaJson);
 
-const selectHtml = (elemento)=>{
-    return document.querySelector(elemento);
+const selectHtml = (el)=>{
+    return document.querySelector(el);
 }
-const selectHtmlAll = (elemento)=>{
-    return document.querySelectorAll(elemento);
+const selectHtmlAll = (el)=>{
+    return document.querySelectorAll(el);
 }
 
 pizzaJson.map((pizza, index) => {
     //clona a estrutura do html
     let pizzaItem = selectHtml(".models .pizza-item").cloneNode(true);
  
-    //puxando dados do Json p janela por id da pizza
+    //puxando dados do Json p janela por id da pizza //armazenar pizza clicada
     pizzaItem.setAttribute('data-key', index);
 
     //puxando dados do Json
+    pizzaItem.querySelector('.pizza-item--img img').src = pizza.img;
+    pizzaItem.querySelector('.pizza-item--price').innerHTML = `R$ ${pizza.price.toFixed(2)}`;
     pizzaItem.querySelector('.pizza-item--name').innerHTML = pizza.name;
     pizzaItem.querySelector('.pizza-item--desc').innerHTML = pizza.description;
-    pizzaItem.querySelector('.pizza-item--price').innerHTML = `R$ ${pizza.price.toFixed(2)}`;
-    pizzaItem.querySelector('.pizza-item--img img').src = pizza.img;
-
+    
     //janela pizza
     pizzaItem.querySelector('a').addEventListener('click', (event)=>{ 
         event.preventDefault();
         //console.log("clicou");
-        let key = e.target.closest('.pizza-item').getAttribute('data-key');
+        let key = event.target.closest('.pizza-item').getAttribute('data-key');
 
-        //console.log("pizza clicada"+key);
+        console.log("pizza clicada"+key);
         //console.log(pizzaJson[key]);
 
         //selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
-
         selectHtml('.pizzaWindowArea').style.opacity = 0;
         selectHtml('.pizzaWindowArea').style.display = 'flex';
 
