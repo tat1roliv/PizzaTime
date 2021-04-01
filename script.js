@@ -1,5 +1,7 @@
 //console.log(pizzaJson);
 
+let modalQt = 1;
+
 const selectHtml = (el)=>{
     return document.querySelector(el);
 }
@@ -23,15 +25,27 @@ pizzaJson.map((pizza, index) => {
     //janela pizza
     pizzaItem.querySelector('a').addEventListener('click', (event)=>{ 
         event.preventDefault();
+        modalQt = 1;
         //console.log("clicou");
         let key = event.target.closest('.pizza-item').getAttribute('data-key');
 
         //preenchendo dados da janela
         selectHtml('.pizzaBig img').src = pizzaJson[key].img;
-        selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;//nome da pizza
+        selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
         selectHtml('.pizza-item--desc').innerHTML = pizzaJson[key].description;
+        selectHtml('.pizzaInfo--actualPrice').innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`;
+        //selectHtml('pizzaInfo--size.selected').classList.remove('selected');
+        selectHtmlAll('.pizzaInfo--size').forEach( (size, sizeIndex) => {
+            if (sizeIndex == 2){
+                size.classList.add('selected');
+            }
+            size.querySelector('span').innerHTML = pizzaJson[key].sizes[sizeIndex];
+            
+        });
 
-        console.log("pizza clicada"+key);
+        selectHtml('.pizzaInfo--qt').innerHTML = modalQt;
+
+        //console.log("pizza clicada"+key);
         //console.log(pizzaJson[key]);
 
         //selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
