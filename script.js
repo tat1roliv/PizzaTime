@@ -9,6 +9,7 @@ const selectHtmlAll = (el)=>{
     return document.querySelectorAll(el);
 }
 
+//listagem das pizzas
 pizzaJson.map((pizza, index) => {
     //clona a estrutura do html
     let pizzaItem = selectHtml(".models .pizza-item").cloneNode(true);
@@ -48,7 +49,7 @@ pizzaJson.map((pizza, index) => {
         //console.log("pizza clicada"+key);
         //console.log(pizzaJson[key]);
 
-        //selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
+        selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
         selectHtml('.pizzaWindowArea').style.opacity = 0;
         selectHtml('.pizzaWindowArea').style.display = 'flex';
 
@@ -61,7 +62,17 @@ pizzaJson.map((pizza, index) => {
     //preenche dados
     selectHtml(".pizza-area").append(pizzaItem);
 
+});
 
-    
+//eventos do modal
+function closeModal(){
+    selectHtml('.pizzaWindowArea').style.opacity = 0;
+    setTimeout(()=>{
+        selectHtml('.pizzaWindowArea').style.display = 'none';
 
+    }, 500);
+}
+
+selectHtmlAll('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=>{
+    item.addEventListener('click', closeModal);
 });
