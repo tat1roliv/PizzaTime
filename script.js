@@ -34,7 +34,7 @@ pizzaJson.map((pizza, index) => {
         selectHtml('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
         selectHtml('.pizza-item--desc').innerHTML = pizzaJson[key].description;
         selectHtml('.pizzaInfo--actualPrice').innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`;
-        //selectHtml('pizzaInfo--size.selected').classList.remove('selected');
+        selectHtml('.pizzaInfo--size.selected').classList.remove('selected');
         selectHtmlAll('.pizzaInfo--size').forEach( (size, sizeIndex) => {
             if (sizeIndex == 2){
                 size.classList.add('selected');
