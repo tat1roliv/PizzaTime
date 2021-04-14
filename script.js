@@ -1,5 +1,5 @@
 //console.log(pizzaJson);
-
+let cart = [];
 let modalQt = 1;
 
 const selectHtml = (el)=>{
@@ -101,4 +101,8 @@ selectHtmlAll('.pizzaInfo--size').forEach( (size, sizeIndex) => {
         
     });
     
+});
+
+selectHtml('.pizzaInfo--addButton').addEventListener('click', () =>{
+
 });
