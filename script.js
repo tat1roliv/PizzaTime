@@ -73,6 +73,32 @@ function closeModal(){
     }, 500);
 }
 
+//btn to x
 selectHtmlAll('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=>{
     item.addEventListener('click', closeModal);
+});
+
+//btn +
+selectHtml('.pizzaInfo--qtmais').addEventListener('click', () => {
+    modalQt++;
+    selectHtml('.pizzaInfo--qt').innerHTML = modalQt;
+    
+});
+
+//btn-
+selectHtml('.pizzaInfo--qtmenos').addEventListener('click', () => {  
+    if(modalQt > 1){
+        modalQt--;
+    }
+    selectHtml('.pizzaInfo--qt').innerHTML = modalQt;
+});
+
+//pizza size
+selectHtmlAll('.pizzaInfo--size').forEach( (size, sizeIndex) => {
+    size.addEventListener('click', (e) => {
+        selectHtml('.pizzaInfo--size.selected').classList.remove('selected');
+        size.classList.add('selected');
+        
+    });
+    
 });
