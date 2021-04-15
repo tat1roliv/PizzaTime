@@ -107,22 +107,33 @@ selectHtmlAll('.pizzaInfo--size').forEach( (size, sizeIndex) => {
     
 });
 
-//add cart info
+//add cart info [type size how many]
 selectHtml('.pizzaInfo--addButton').addEventListener('click', () =>{
-    //type
-    //console.log("pizza type"+modalKey);
-    //size
-    let size = parseInt(selectHtml('.pizzaInfo--size.selected').getAttribute('data-key'));
-    //console.log("pizza size"+size);
-    //how many
+    
+    //console.log("pizza type"+modalKey); 
+    let size = parseInt(selectHtml('.pizzaInfo--size.selected').getAttribute('data-key'));       
     //console.log("pizza type"+modalQt);
-   
-    cart.push({
-        id:pizzaJson[modalKey].id,
-        size,
-        qt:modalQt
+
+    let identifier = pizzaJson[modalKey].id+'@'+size;
+
+    let key = cart.findIndex((item) =>{
+        return item.identifier == identifier;
+    });
+
+    if( key > -1) {
+        cart[key].qt += modalQt;
+    } else{
+        cart.push({
+            identifier,
+            id:pizzaJson[modalKey].id,
+            size,
+            qt:modalQt
 
     });
+
+    }
+
+
 
     closeModal();
 
