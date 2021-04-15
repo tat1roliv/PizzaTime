@@ -137,14 +137,32 @@ selectHtml('.pizzaInfo--addButton').addEventListener('click', () =>{
 
 });
 
+selectHtml('.menu-openner').addEventListener('click', () =>{
+    if( cart.length > 0){
+        selectHtml('aside').style.left = '0';   
+    }
+});
+selectHtml('.menu-closer').addEventListener('click', () => {
+    selectHtml('aside').style.left = '100vw';   
+});
+
 function updateCart(){
+
+    selectHtml('.menu-openner span').innerHTML = cart.length;
+
     if (cart.length > 0){
         selectHtml('aside').classList.add("show");
         selectHtml('.cart').innerHTML = '';
 
+
+        let subtotal = 0;
+        let desconto = 0;
+        let total = 0;
+
+
         for (let i in cart){
             let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id);
-            //console.log(pizzaItem);
+            subtotal += pizzaItem.price * cart[i].qt;
 
             let cartItem = selectHtml('.models .cart--item').cloneNode(true);
 
@@ -160,7 +178,7 @@ function updateCart(){
                     pizzaSizeName = 'G';
                     break;
             }
-            
+
             let pizzaName = `${pizzaItem.name} (${pizzaSizeName})`;
 
 
@@ -168,13 +186,32 @@ function updateCart(){
             cartItem.querySelector('img').src = pizzaItem.img;
             cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
             cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt;
+            cartItem.querySelector('.cart--item-qtmenos').addEventListener('click', () =>{
+                if(cart[i].qt > 1){
+                    cart[i].qt--;
+                } else{
+                    cart.splice(i, 1);
+                } 
+                updateCart();
+            });
 
+            cartItem.querySelector('.cart--item-qtmais').addEventListener('click', () =>{
+                cart[i].qt++;
+                updateCart();
+            });
 
             selectHtml('.cart').append(cartItem);
         }
 
+        desconto =  subtotal * 0.1;
+        total = subtotal - desconto;
+
+        selectHtml('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
+        selectHtml('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
+        selectHtml('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
 
     }else{
         selectHtml('aside').classList.remove("show");
+        selectHtml('aside').style.left = '100vw';
     }
 }
