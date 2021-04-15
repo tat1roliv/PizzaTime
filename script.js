@@ -1,6 +1,7 @@
 //console.log(pizzaJson);
 let cart = [];
 let modalQt = 1;
+let modalKey = '0';
 
 const selectHtml = (el)=>{
     return document.querySelector(el);
@@ -26,9 +27,12 @@ pizzaJson.map((pizza, index) => {
     //janela pizza
     pizzaItem.querySelector('a').addEventListener('click', (event)=>{ 
         event.preventDefault();
+        let key = event.target.closest('.pizza-item').getAttribute('data-key'); 
+        //reset qt
         modalQt = 1;
-        //console.log("clicou");
-        let key = event.target.closest('.pizza-item').getAttribute('data-key');
+        //selected pizza
+        modalKey = key;
+        
 
         //preenchendo dados da janela
         selectHtml('.pizzaBig img').src = pizzaJson[key].img;
@@ -64,7 +68,7 @@ pizzaJson.map((pizza, index) => {
 
 });
 
-//eventos do modal
+//modal events
 function closeModal(){
     selectHtml('.pizzaWindowArea').style.opacity = 0;
     setTimeout(()=>{
@@ -73,19 +77,19 @@ function closeModal(){
     }, 500);
 }
 
-//btn to x
+//btn to close
 selectHtmlAll('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=>{
     item.addEventListener('click', closeModal);
 });
 
-//btn +
+//btn++
 selectHtml('.pizzaInfo--qtmais').addEventListener('click', () => {
     modalQt++;
     selectHtml('.pizzaInfo--qt').innerHTML = modalQt;
     
 });
 
-//btn-
+//btn--
 selectHtml('.pizzaInfo--qtmenos').addEventListener('click', () => {  
     if(modalQt > 1){
         modalQt--;
@@ -103,6 +107,23 @@ selectHtmlAll('.pizzaInfo--size').forEach( (size, sizeIndex) => {
     
 });
 
+//add cart info
 selectHtml('.pizzaInfo--addButton').addEventListener('click', () =>{
+    //type
+    //console.log("pizza type"+modalKey);
+    //size
+    let size = parseInt(selectHtml('.pizzaInfo--size.selected').getAttribute('data-key'));
+    //console.log("pizza size"+size);
+    //how many
+    //console.log("pizza type"+modalQt);
+   
+    cart.push({
+        id:pizzaJson[modalKey].id,
+        size,
+        qt:modalQt
+
+    });
+
+    closeModal();
 
 });
