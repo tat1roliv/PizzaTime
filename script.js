@@ -132,9 +132,22 @@ selectHtml('.pizzaInfo--addButton').addEventListener('click', () =>{
     });
 
     }
-
-
-
+    updateCart();
     closeModal();
 
 });
+
+function updateCart(){
+    if (cart.length > 0){
+        selectHtml('aside').classList.add("show");
+
+        for (let i in cart){
+            let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id);
+            console.log(pizzaItem);
+        }
+
+
+    }else{
+        selectHtml('aside').classList.remove("show");
+    }
+}
